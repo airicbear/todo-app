@@ -51,7 +51,7 @@ func printHelp() {
     print("save \t\t\t\t\t\t\t Save ToDo list")
     print("change name [new name] \t\t\t Change your name")
     print("change [id] [description] \t\t Change a ToDo item")
-    print("done [id] \t\t\t\t\t\t\t Remove a ToDo item")
+    print("done [id] \t\t\t\t\t\t Remove a ToDo item")
 }
 
 func printTodoList() {
@@ -66,14 +66,15 @@ func printTodoList() {
 }
 
 func run() {
-    defer { defaults.set(todoList, forKey: DefaultsKeys.todoList) }
     print(">", terminator: " ")
     if let input = readLine() {
         let tokens = input.components(separatedBy: " ")
         switch tokens[0] {
         case "help":
             printHelp()
-        case "quit": return
+        case "quit":
+            defaults.set(todoList, forKey: DefaultsKeys.todoList)
+            exit(0)
         case "list":
             printTodoList()
         case "add":
