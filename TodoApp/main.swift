@@ -94,7 +94,11 @@ func run() {
                     print("Hi there, \(defaults.string(forKey: DefaultsKeys.name)!).")
                 default:
                     if let id = Int(tokens[1]) {
-                        todoList[id] = arg3
+                        if id < tokens.count {
+                            todoList[id] = arg3
+                        } else {
+                            print("That item does not exist.")
+                        }
                     } else {
                         invalidCommand()
                     }
