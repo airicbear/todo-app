@@ -40,6 +40,31 @@ func invalidCommand() {
     run()
 }
 
+func printHelp() {
+    print("help \t\t\t\t\t\t\t List available commands")
+    print("quit \t\t\t\t\t\t\t Quit the application")
+    print("list \t\t\t\t\t\t\t List incomplete items in ToDo list")
+//            print("list --all\t\t\t\t\t\t List all items in ToDo list")
+//            print("list --complete \t\t\t\t List complete items in ToDo list")
+    print("add [description] \t\t\t\t Add new ToDo item")
+//            print("done [id] \t\t\t\t\t\t Mark a ToDo item as complete")
+    print("save \t\t\t\t\t\t\t Save ToDo list")
+    print("change name [new name] \t\t\t Change your name")
+    print("change [id] [description] \t\t Change a ToDo item")
+    print("done [id] \t\t\t\t\t\t\t Remove a ToDo item")
+}
+
+func printTodoList() {
+    if todoList.isEmpty {
+        print("Your ToDo list is empty.")
+    } else {
+        print("Your ToDo List")
+        for i in 0..<todoList.count {
+            print("\(i): \t\(todoList[i])")
+        }
+    }
+}
+
 func run() {
     defer { defaults.set(todoList, forKey: DefaultsKeys.todoList) }
     print(">", terminator: " ")
@@ -47,27 +72,10 @@ func run() {
         let tokens = input.components(separatedBy: " ")
         switch tokens[0] {
         case "help":
-            print("help \t\t\t\t\t\t\t List available commands")
-            print("quit \t\t\t\t\t\t\t Quit the application")
-            print("list \t\t\t\t\t\t\t List incomplete items in ToDo list")
-//            print("list --all\t\t\t\t\t\t List all items in ToDo list")
-//            print("list --complete \t\t\t\t List complete items in ToDo list")
-            print("add [description] \t\t\t\t Add new ToDo item")
-//            print("done [id] \t\t\t\t\t\t Mark a ToDo item as complete")
-            print("save \t\t\t\t\t\t\t Save ToDo list")
-            print("change name [new name] \t\t\t Change your name")
-            print("change [id] [description] \t\t Change a ToDo item")
-            print("done [id] \t\t\t\t\t\t\t Remove a ToDo item")
+            printHelp()
         case "quit": return
         case "list":
-            if todoList.isEmpty {
-                print("Your ToDo list is empty.")
-            } else {
-                print("Your ToDo List")
-                for i in 0..<todoList.count {
-                    print("\(i): \t\(todoList[i])")
-                }
-            }
+            printTodoList()
         case "add":
             if tokens.count > 1 {
                 let description = tokens.suffix(from: 1).joined(separator: " ")
