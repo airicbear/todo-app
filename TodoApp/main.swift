@@ -109,8 +109,12 @@ func run() {
         case "done":
             if tokens.count == 2 {
                 if let id = Int(tokens[1]) {
-                    todoList.remove(at: id)
-                    print("Removed item \(id).")
+                    if id < tokens.count {
+                        todoList.remove(at: id)
+                        print("Removed item \(id).")
+                    } else {
+                        print("That item does not exist.")
+                    }
                 }
             }
         case "": run()
